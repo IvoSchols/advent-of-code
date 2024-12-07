@@ -33,7 +33,7 @@ def get_guard_direction(position, direction, obstructions):
         if step not in obstructions:
             return direction
         direction = direction.next()
-    return None  # No valid direction
+    raise ValueError("All directions are blocked")
 
 def guard_movement_rules(position, direction, obstructions):
     # Get new direction if faced with an obstacle
