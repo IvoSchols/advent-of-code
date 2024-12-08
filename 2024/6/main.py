@@ -25,7 +25,7 @@ def guard_will_step_out_of_bounds(map_size, position, direction):
     width, height = map_size
     next_position = move_guard(position, direction)
     row, col = next_position
-    return not (0 <= row <= height and 0 <= col <= width)
+    return not (0 <= row < height and 0 <= col < width)
 
 def get_guard_direction(position, direction, obstructions):
     for _ in range(4):
@@ -59,6 +59,7 @@ def part_one(map_size, guard_position, guard_direction, obstructions):
 
 def part_two(map_size, guard_position, guard_direction, obstructions):
     guard_path = get_guard_path(map_size, guard_position, guard_direction, obstructions)
+    guard_path = guard_path[:-1]  # Exclude the last position
     looping_obstructions = set()
 
     # Skip the first position to avoid considering initial obstructions
@@ -82,7 +83,6 @@ def part_two(map_size, guard_position, guard_direction, obstructions):
                     break
                 if (loop_position, loop_direction) in steps_taken:
                     looping_obstructions.add(obstruction)
-                    print(len(looping_obstructions))
                     break
                 steps_taken.add((loop_position, loop_direction))
 
